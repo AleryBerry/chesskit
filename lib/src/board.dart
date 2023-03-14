@@ -306,6 +306,23 @@ class Board {
     );
   }
 
+  String toASCII() {
+    String result = "";
+    for (int i = 0; i < 64; i++) {
+      final Piece? piece =
+          occupied.squares.contains(63 - i) ? pieceAt(63 - i) : null;
+      result = piece == null ? "$result " : "$result${piece.fenChar}";
+      if ((i + 1) % 8 == 0) {
+        result += "\n";
+      }
+    }
+    return result
+        .trimRight()
+        .split('\n')
+        .map((String e) => e.split('').reversed.join())
+        .join('\n');
+  }
+
   @override
   String toString() => fen;
 
